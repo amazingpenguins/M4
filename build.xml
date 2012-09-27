@@ -70,7 +70,7 @@
 
 	<!-- -->
 	<target name="run" depends="jar">
-		<java jar="m4.jar" fork="true">
+		<java jar="${jarfile}" fork="true">
 		<classpath>
 			<pathelement location="${build.dir}"/>
 			<pathelement location="${lib.dir}/resources.jar"/>
