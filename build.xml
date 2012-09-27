@@ -13,6 +13,7 @@
 		<property name="lib.dir" 	location="lib"/>
 		<property name="src.dir" 	location="src"/>
 		<property name="src2.dir" 	location="src2"/>
+		<property name="jarfile" 	value="${basedir}/m4.jar"/>
 
 		<!-- Include the library .jar file -->
 		<path id="classpath">
@@ -31,6 +32,7 @@
 			description="Cleans the build ">
 		<delete dir="${build.dir}"/>
 		<delete dir="${apidoc.dir}"/>
+		<delete file="${jarfile}"/>
 	</target>
 
 	<!-- -->
@@ -58,7 +60,7 @@
 	<!-- -->
 	<target name="jar" depends="compile"
 			description="Generate a jar file of the project ">
-		<jar basedir="${build.dir}" destfile="m4.jar">
+		<jar basedir="${build.dir}" destfile="${jarfile}">
 			<manifest>
 				<attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain"/>
 				<attribute name="Class-Path" value="lib/resources.jar" />
