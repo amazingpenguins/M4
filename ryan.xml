@@ -1,10 +1,11 @@
+<!-- Build project m4, default option is "all" and basedir is current dir -->
 <project name="m4" default="all" basedir=".">
-	<!-- Describe our project. -->
+	<!-- Describe our project -->
 	<description>
 		Milestone 4 ant build testing.
 	</description>
 
-	<!-- -->
+	<!-- Initialize the property values and classpath -->
 	<target name="init">
 		<!-- Define our directories -->
 		<property name="apidoc.dir" 	location="apidoc"/>
@@ -21,13 +22,13 @@
 		</path>
 	</target>
 
-	<!-- -->
+	<!-- Create any needed directories -->
 	<target name="prepare" depends="init">
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${apidoc.dir}"/>
 	</target>
 
-	<!-- -->
+	<!-- Clean up the directories and jarfile -->
 	<target name="clean" depends="init"
 			description="Cleans the build ">
 		<delete dir="${build.dir}"/>
@@ -35,17 +36,17 @@
 		<delete file="${jarfile}"/>
 	</target>
 
-	<!-- -->
+	<!-- Compile all of the source -->
 	<target name="compile" depends="prepare"
 			description="Compile the source ">
-		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath"/>
+		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath" includeantruntime="false"/>
 	</target>
 
-	<!-- -->
+	<!-- Generate javadocs for the source -->
 	<target name="javadoc" depends="prepare"
 			description="Generate the javadocs ">
 		<javadoc sourcepath="${src.dir}" access="public" destdir="${apidoc.dir}/javadoc"
-			packagenames="edu.gatech.oad.antdemo">
+			classpathref="classpath" packagenames="edu.gatech.oad.antdemo">
 			<excludepackage name="edu.gt.cs2340.lab2.test.*"/>
 			<fileset dir="${src.dir}">
 			<include name="**/*.java"/>
@@ -57,7 +58,7 @@
 
 	</target>
 
-	<!-- -->
+	<!-- Generate a .jar file in the basedir -->
 	<target name="jar" depends="compile"
 			description="Generate a jar file of the project ">
 		<jar basedir="${build.dir}" destfile="${jarfile}">
@@ -68,7 +69,7 @@
 		</jar>
 	</target>
 
-	<!-- -->
+	<!-- Run the generated jar file -->
 	<target name="run" depends="jar">
 		<java jar="${jarfile}" fork="true">
 		<classpath>
@@ -79,6 +80,6 @@
 		</java>
 	</target>
 
-	<!-- -->
-	<target name="all" depends="jar,run"/>
+	<!-- Generates the javadocs, jar file, and runs the jar -->
+	<target name="all" depends="javadoc,jar,run"/>
 </project>
