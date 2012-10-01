@@ -14,7 +14,7 @@
 		<property name="lib.dir" 	location="lib"/>
 		<property name="src.dir" 	location="src"/>
 		<property name="src2.dir" 	location="src2"/>
-		<property name="jarfile" 	value="${basedir}/m4.jar"/>
+		<property name="jarfile" 	value="${basedir}/m4ryan.jar"/>
 
 		<!-- Include the library .jar file -->
 		<path id="classpath">
