@@ -1,0 +1,71 @@
+<project name="milestone4" basedir="." default="all">
+	
+
+
+	<target name="init">
+
+		<property name="apidoc.dir" location="apidoc"/>
+		<property name="build.dir" 	location="build"/>
+		<property name="jar.dir" 	location="${build.dir}/jar"/>
+		<property name="lib.dir" 	location="lib"/>
+		<property name="src.dir" 	location="src"/>
+		<property name="src2.dir" 	location="src2"/>
+		<property name="jarfile" 	value="${basedir}/adam.jar"/>
+
+		<path id="classpath">
+			<fileset dir="${lib.dir}" includes="resources.jar"/>
+		</path>
+	</target>
+
+	<target name="prepare" depends="init">
+		<mkdir dir="${apidoc.dir}"/>
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath" includeantruntime="false"/>
+	</target>
+
+	<target name="javadoc" depends="prepare">
+		<javadoc sourcepath="${src.dir}" access="public" destdir="${apidoc.dir}/javadoc"
+			classpathref="classpath" packagenames="edu.gatech.oad.antdemo">
+			<excludepackage name="edu.gt.cs2340.lab2.test.*"/>
+			<fileset dir="${src.dir}">
+			<include name="**/*.java"/>
+			</fileset>
+			<bottom>
+				<![CDATA[<i>Copyright &#169; 2012 The Amazing Penguins CS2340. All Rights Reserved.</i>]]>
+			</bottom>
+		</javadoc>	
+
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar basedir="${build.dir}" destfile="${jarfile}">
+			<manifest>
+				<attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain"/>
+				<attribute name="Class-Path" value="lib/resources.jar" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run" depends="jar">
+		<java jar="${jarfile}" fork="true">
+		<classpath>
+			<pathelement location="${build.dir}"/>
+			<pathelement location="${lib.dir}/resources.jar"/>
+			<pathelement location="java.class.path"/>
+		</classpath>
+		</java>
+	</target>
+
+	<target name="all" depends="javadoc,run">
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${build.dir}"/>
+		<delete dir="${apidoc.dir}"/>
+		<delete file="${jarfile}"/>
+	</target>
+</project>
