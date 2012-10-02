@@ -1,50 +1,33 @@
-<!-- Build project m4, default option is "all" and basedir is current dir -->
-<project name="m4" default="all" basedir=".">
-	<!-- Describe our project -->
-	<description>
-		Milestone 4 ant build testing.
-	</description>
+<project name="milestone4" basedir="." default="all">
+	
 
-	<!-- Initialize the property values and classpath -->
+
 	<target name="init">
-		<!-- Define our directories -->
-		<property name="apidoc.dir" 	location="apidoc"/>
+
+		<property name="apidoc.dir" location="apidoc"/>
 		<property name="build.dir" 	location="build"/>
 		<property name="jar.dir" 	location="${build.dir}/jar"/>
 		<property name="lib.dir" 	location="lib"/>
 		<property name="src.dir" 	location="src"/>
 		<property name="src2.dir" 	location="src2"/>
-		<property name="jarfile" 	value="${basedir}/m4ryan.jar"/>
+		<property name="jarfile" 	value="${basedir}/adam.jar"/>
 
-		<!-- Include the library .jar file -->
 		<path id="classpath">
 			<fileset dir="${lib.dir}" includes="resources.jar"/>
 		</path>
 	</target>
 
-	<!-- Create any needed directories -->
 	<target name="prepare" depends="init">
-		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${apidoc.dir}"/>
+		<mkdir dir="${build.dir}"/>
 	</target>
 
-	<!-- Clean up the directories and jarfile -->
-	<target name="clean" depends="init"
-			description="Cleans the build ">
-		<delete dir="${build.dir}"/>
-		<delete dir="${apidoc.dir}"/>
-		<delete file="${jarfile}"/>
-	</target>
 
-	<!-- Compile all of the source -->
-	<target name="compile" depends="prepare"
-			description="Compile the source ">
+	<target name="compile" depends="prepare">
 		<javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath" includeantruntime="false"/>
 	</target>
 
-	<!-- Generate javadocs for the source -->
-	<target name="javadoc" depends="prepare"
-			description="Generate the javadocs ">
+	<target name="javadoc" depends="prepare">
 		<javadoc sourcepath="${src.dir}" access="public" destdir="${apidoc.dir}/javadoc"
 			classpathref="classpath" packagenames="edu.gatech.oad.antdemo">
 			<excludepackage name="edu.gt.cs2340.lab2.test.*"/>
@@ -58,9 +41,7 @@
 
 	</target>
 
-	<!-- Generate a .jar file in the basedir -->
-	<target name="jar" depends="compile"
-			description="Generate a jar file of the project ">
+	<target name="jar" depends="compile">
 		<jar basedir="${build.dir}" destfile="${jarfile}">
 			<manifest>
 				<attribute name="Main-Class" value="edu.gatech.oad.antlab.pkg1.AntLabMain"/>
@@ -69,7 +50,6 @@
 		</jar>
 	</target>
 
-	<!-- Run the generated jar file -->
 	<target name="run" depends="jar">
 		<java jar="${jarfile}" fork="true">
 		<classpath>
@@ -80,6 +60,12 @@
 		</java>
 	</target>
 
-	<!-- Generates the javadocs, jar file, and runs the jar -->
-	<target name="all" depends="javadoc,jar,run"/>
+	<target name="all" depends="javadoc,run">
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${build.dir}"/>
+		<delete dir="${apidoc.dir}"/>
+		<delete file="${jarfile}"/>
+	</target>
 </project>

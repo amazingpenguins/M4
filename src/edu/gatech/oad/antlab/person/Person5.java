@@ -30,8 +30,11 @@ public class Person5 {
 	 * @return the modified string
 	 */
 	private String calc(String input) {
-	  //Person 5 put your implementation here
-	  return null;
+        String shifted = "";
+        for (int i=0; i<input.length(); i++){
+            shifted = shifted + input.charAt((i+3)%input.length());
+        }
+        return shifted;
 	}
 	
 	/**
