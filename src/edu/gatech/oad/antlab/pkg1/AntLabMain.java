@@ -63,8 +63,8 @@ import edu.gatech.oad.antlab.pkg2.*;
 		  toPrint += p1.toString("902xxx315");
 		  //Person2 replace P2 with your name
 		  //and ggg000x with your gt num
-		  Person2 p2 = new Person2("P2");
-		  toPrint += p2.toString("ggg002x");
+		  Person2 p2 = new Person2("Scott Daner");
+		  toPrint += p2.toString("902772158");
 		  //Person3 replace P3 with your name
 		  //and ggg000x with your gt num
 		  Person3 p3 = new Person3("Adam Szaruga");
