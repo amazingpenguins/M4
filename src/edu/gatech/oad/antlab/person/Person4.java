@@ -31,11 +31,16 @@ public class Person4 {
      */
     private String calc(String input) {
       
-      String result = "";
-      for (int x = 0; x < input.length(); x++) {
-        result = result + result.charAt((x+1)%input.length());
-        
+      if (input == null || input.length() < 2)
+        return input;
+
+      String result  = ""
+      for (int x = 1; x < input.Length(); x++) {
+        result += input.charAt(x);
       }
+      result += input.charAt(0);
+      
+      
       return result;
     }
     
