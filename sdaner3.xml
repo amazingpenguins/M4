@@ -1,0 +1,52 @@
+<project name="M4" default="all" basedir=".">
+	<description>
+		Scott Daner's Ant File for M4
+	</description> 
+
+	<!-- Init: Set up all properties -->
+	<target name="init">
+		<property name="src" location="src" />
+		<property name="build" location="build" />
+		<property name="apidoc" location="apidoc" />
+		<property name="lib" location="lib" />
+		<property name="jar" value="${basedir}/AntLabRun.jar" />
+		<property name="main" value="edu.gatech.oad.antlab.pkg1.AntLabMain" />
+		<property name="classpath" value="lib/resources.jar" />
+	</target>
+
+	<!-- Prepare: Make all required directories -->
+	<target name="prepare" depends="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${apidoc}" />
+	</target>
+
+	<!-- Compile: Compile all java classes and put in 'build' directory -->
+	<target name="compile" depends="prepare"> 
+		<javac srcdir="${src}" destdir="${build}" includeantruntime="false" classpath="${classpath}"/>
+	</target>
+
+	<target name="javadoc" depends="prepare"> 
+		<javadoc sourcepath="${src}" destdir="${apidoc}" />
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar basedir="${build}" destfile="${jar}">
+			<manifest> 
+				<attribute name="Main-Class" value="${main}" />
+				<attribute name="Class-Path" value="${classpath}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run" depends="jar">
+		<java jar="${jar}" fork="true" />
+	</target>
+
+	<target name="all" depends="run, javadoc" />
+
+	<target name="clean" depends="init">
+		<delete dir="${build}" />
+		<delete dir="${apidoc}" />
+		<delete file="${jar}" />
+	</target>
+</project>
