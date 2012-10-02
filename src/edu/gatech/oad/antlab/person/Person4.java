@@ -34,8 +34,8 @@ public class Person4 {
       if (input == null || input.length() < 2)
         return input;
 
-      String result  = ""
-      for (int x = 1; x < input.Length(); x++) {
+      String result  = "";
+      for (int x = 1; x < input.length(); x++) {
         result += input.charAt(x);
       }
       result += input.charAt(0);
