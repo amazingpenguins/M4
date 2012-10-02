@@ -80,6 +80,6 @@
 		</java>
 	</target>
 
-	<!-- Generates the javadocs, jar file, and runs the jar -->
-	<target name="all" depends="javadoc,jar,run"/>
+	<!-- Generates the javadocs, and builds/runs the jar -->
+	<target name="all" depends="javadoc,run"/>
 </project>
